@@ -12,8 +12,8 @@ This project implements a Kannada Speech-to-Text system using Whisper models int
 1. Clone the repository
 2. Install dependencies:
    npm install --legacy-peer-deps
-   cd android
-   .\gradlew clean
+   , cd android
+   , .\gradlew clean
    
 4.  Due to GitHub size limitations, model files are hosted on Google Drive.
     Download model files:
