@@ -1,0 +1,88 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+react {}
+
+def enableProguardInReleaseBuilds = false
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace "com.tempproject"
+
+    defaultConfig {
+        applicationId "com.tempproject"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+        pickFirst '**/libc++_shared.so'
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include "arm64-v8a"
+            universalApk true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    aaptOptions {
+        noCompress "pt"
+        noCompress "bin"
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+configurations.all {
+    exclude group: "com.facebook.fbjni", module: "fbjni-java-only"
+}
+
+dependencies {
+
+    implementation("com.facebook.react:react-android")
+
+    // ✅ FULL PYTORCH
+    implementation 'org.pytorch:pytorch_android:2.1.0'
+
+    implementation("com.facebook.react:flipper-integration")
+    implementation("com.github.wendykierp:JTransforms:3.1")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+applyNativeModulesAppBuildGradle(project)
