@@ -17,7 +17,7 @@ This project implements a Kannada Speech-to-Text system using Whisper models int
    
 4.  Due to GitHub size limitations, model files are hosted on Google Drive.
     Download model files:
-    https://drive.google.com/drive/folders/1NnGO41LIcHrId_s7nDPycMY71Cyll7Ye?usp=sharing
+    https://drive.google.com/drive/folders/1_J4adPwJ6s9sjZWP1yy7PGlO3wlv3Vy3?usp=sharing
 
 5. After downloading, place models in:
    android/app/src/main/assets/
