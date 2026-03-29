@@ -1,5 +1,0 @@
-*.pt
-*.pte
-android/build/
-android/app/build/
-*.apk
